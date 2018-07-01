@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+    <button @click="sendComment">发表评论</button>
+  </div>
+  <script src="./vue.js"></script>
+  <!-- 引入 axios -->
+  <script src="./node_modules/axios/dist/axios.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        imgList: [],
+        isLoading: true
+      },
+
+      created() {
+        // 在这个钩子函数中发送请求获取数据
+        axios
+          .get('http://localhost:8080/api/register')
+          .then((res) => {
+            // console.log(res.data.message);
+
+            this.imgList = res.data.message
+            this.isLoading = false
+          })
+      },
+
+      methods: {
+        sendComment() {
+          const url = 'http://localhost:8080/api/register'
+
+          axios
+            // 第一个参数：表示接口地址
+            // 第二个参数：表示POST请求的参数，注意这个参数的格式是： 键=值&键1=值1
+            .post(url, 'content=好文！顶顶！！！')
+
+            // 注意：参数不能是一个对象！！！
+            /* .post(url, {
+              content: '好文！顶顶！！！'
+            }) */
+            .then((res) => {
+              console.log(res);
+            })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
