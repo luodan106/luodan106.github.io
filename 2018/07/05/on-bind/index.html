@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        个人博客
+        jquery on、bind用法比较｜个人博客
         
     </title>
 
-    <link rel="canonical" href="http://luodan106.github.io/archives/2018/07/">
+    <link rel="canonical" href="http://luodan106.github.io/2018/07/05/on-bind/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -115,87 +115,159 @@
 </script>
 
 <!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/image/star.jpeg">
+
+
 <style>
-    .intro-header .site-heading {
-        margin: 50px;
-    }
     
     header.intro-header {
         background-image: url('/image/star.jpeg')
     }
+
     
 </style>
 
-<!-- Page Header -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading text-center">
-                    <h1>archives</h1>
-                    <span class="subheading">可以根据归档日期检索所有文件</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>jquery on、bind用法比较</h1>
+                    
+                    <span class="meta">
+                         作者 洛洛木
+                        <span>
+                          日期 2018-07-05
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="post-title-haojen">
+        <span>
+            jquery on、bind用法比较
+        </span>
+    </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- archive list -->
-            
-				
-				
-				
-					
-					
-					<div class="archive archive-year" data-date="2018">
-						<h2 class="archive-title">
-						<span class="fa fa-archive">
-							<a href="/archives/2018">2018</a>
-						</span>
-						</h2>
-				
-				
-					
-					
-					<div class="archive archive-month" data-date="201807">
-						<h3 class="archive-title">
-							<a href="/archives/2018/07">07</a>
-						</h3>
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/05/on-bind/">
-                        <h4 class="post-title">
-                            jquery on、bind用法比较
-                        </h4>
-                        
-                    </a>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>#jquery on、bind用法比较<br>一、on的用法</p>
+<ol>
+<li><p>使用方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$(selector).on(event,childSelector,data,function)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参数描述</p>
+<pre><code>- event：(必需)指定绑定的事件，可同时绑定多个事件，其间用空格隔开，如&quot;click mouseout&quot;
+- childSelector:(可选)绑定到制定的子元素上，适用于动态添加的元素上
+- data：传递到函数的额外数据，格式如{name:&apos;name&apos;,id:&apos;123&apos;}
+- function：事件发生执行的函数 
+</code></pre></li>
+<li><p>添加多个事件处理程序</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$(&quot;p&quot;).on(&#123;</span><br><span class="line">   mouseover:fun1,  </span><br><span class="line">   mouseout:fun2, </span><br><span class="line">   click:fun3  </span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行函数获取传递的参数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function fun(event)&#123;</span><br><span class="line">    var name=event.data.name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移除on方法绑定的事件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$(&quot;p&quot;).off(&quot;click&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>二、bind的用法(不能在动态添加的元素上使用bind绑定事件)</p>
+<ol>
+<li>使用方法<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$(selector).bind(event,data,function)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li>参数描述</li>
+</ol>
+<ul>
+<li>event: (必需)规定添加到元素的一个或多个事件</li>
+<li>data:(可选)规定传递到函数的额外数据</li>
+<li>function:事件发生执行的函数 </li>
+</ul>
+<ol start="3">
+<li>移除bind方法绑定的事件<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$(&quot;p&quot;).unbind(&quot;click&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>三、使用实例<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>btn1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"removeFun"</span>&gt;</span>btn2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"testDiv"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">$(function()&#123;</span><br><span class="line">var num=1;</span><br><span class="line">//点击btn1,testDiv中添加p元素</span><br><span class="line">   $(&quot;#btn&quot;).bind(&quot;click&quot;,function()&#123;</span><br><span class="line">       $(&quot;#testDiv&quot;).append(&quot;&lt;p&gt;&quot;+(num++)+&quot;&lt;/p&gt;&quot;)</span><br><span class="line">   &#125;);</span><br><span class="line">   //点击btn2，解除给btn1绑定的事件</span><br><span class="line">   $(&quot;#removeFun&quot;).bind(&quot;click&quot;,function()&#123;</span><br><span class="line">       $(&quot;#btn&quot;).unbind(&quot;click&quot;);</span><br><span class="line">   &#125;);</span><br><span class="line">   //给动态添加的p元素绑定点击事件</span><br><span class="line">   $(&quot;#testDiv&quot;).on(&quot;click&quot;,&quot;p&quot;,&#123;data:&quot;段落&quot;&#125;,function(event)&#123;</span><br><span class="line">       alert(event.data.data+$(this).text());</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/07/01/input-image/" data-toggle="tooltip" data-placement="top"
+                           title="在input框前添加图片">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    
                 </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/01/input-image/">
-                        <h4 class="post-title">
-                            在input框前添加图片
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
+            </div>
         </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
     </div>
+</article>
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->
