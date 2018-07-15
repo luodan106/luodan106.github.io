@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        jquery on、bind用法比较｜个人博客
+        个人博客
         
     </title>
 
-    <link rel="canonical" href="http://luodan106.github.io/2018/07/05/on-bind/">
+    <link rel="canonical" href="http://luodan106.github.io/2018/07/15/setTimeout/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -137,12 +137,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>jquery on、bind用法比较</h1>
+                    <h1></h1>
                     
                     <span class="meta">
                          作者 洛洛木
                         <span>
-                          日期 2018-07-05
+                          日期 2018-07-15
                          </span>
                     </span>
                     <div class="tags text-center">
@@ -154,7 +154,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            jquery on、bind用法比较
+            
         </span>
     </div>
 </header>
@@ -165,60 +165,36 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <p>#jquery on、bind用法比较<br>一、on的用法</p>
+                <hr>
+<h2 id="title：for循环中setTimeout如何按预想运行"><a href="#title：for循环中setTimeout如何按预想运行" class="headerlink" title="title：for循环中setTimeout如何按预想运行"></a>title：for循环中setTimeout如何按预想运行</h2><p>一 、for循环中setTimeout执行效果<br>for循环中setTimeout执行效果有如下几种<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(var i=0;i&lt;5;i++)&#123;</span><br><span class="line">setTimeout(function()&#123;</span><br><span class="line">    console.log(i)</span><br><span class="line">&#125;,1000)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结果是一下输出5个5<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(var i=0;i&lt;5;i++)&#123;</span><br><span class="line">(function(i)&#123;</span><br><span class="line">setTimeout(function()&#123;</span><br><span class="line">    console.log(i)</span><br><span class="line">&#125;,1000*i);</span><br><span class="line">&#125;)(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结果是隔一秒输出0，1，2，3，4<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(var i=0;i&lt;5;i++)&#123;</span><br><span class="line">setTimeout(function()&#123;</span><br><span class="line">    console.log(i)</span><br><span class="line">&#125;(i),1000*i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结果连续输出0，1，2，3，4<br>二、加入各种setTimeout执行顺序问题</p>
 <ol>
-<li><p>使用方法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$(selector).on(event,childSelector,data,function)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>参数描述</p>
-<pre><code>- event：(必需)指定绑定的事件，可同时绑定多个事件，其间用空格隔开，如&quot;click mouseout&quot;
-- childSelector:(可选)绑定到制定的子元素上，适用于动态添加的元素上
-- data：传递到函数的额外数据，格式如{name:&apos;name&apos;,id:&apos;123&apos;}
-- function：事件发生执行的函数 
-</code></pre></li>
-<li><p>添加多个事件处理程序</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$(&quot;p&quot;).on(&#123;</span><br><span class="line">   mouseover:fun1,  </span><br><span class="line">   mouseout:fun2, </span><br><span class="line">   click:fun3  </span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行函数获取传递的参数</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function fun(event)&#123;</span><br><span class="line">    var name=event.data.name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>移除on方法绑定的事件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$(&quot;p&quot;).off(&quot;click&quot;);</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>二、bind的用法(不能在动态添加的元素上使用bind绑定事件)</p>
-<ol>
-<li>使用方法<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$(selector).bind(event,data,function)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol start="2">
-<li>参数描述</li>
+<li>先来了解一下setTimeout和setInterval的用法</li>
 </ol>
 <ul>
-<li>event: (必需)规定添加到元素的一个或多个事件</li>
-<li>data:(可选)规定传递到函数的额外数据</li>
-<li>function:事件发生执行的函数 </li>
+<li>setTimeout使用方法：var id=setTimeout(fun,milliseconds)，指定的时间间隔后执行函数，返回的id值可以传递给 clearTimeout() 来取消执行</li>
+<li>setInterval使用方法：var id=setInterval(fun,milliseconds)，按照指定的周期（以毫秒计）来调用函数，返回的id值可以传递给 clearInterval()取消对函数的周期性执行</li>
+<li>setTimeout和for循环放在一起使用会产生上面这种效果主要原因在于以下，js的单线程机制和闭包。</li>
 </ul>
-<ol start="3">
-<li>移除bind方法绑定的事件<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$(&quot;p&quot;).unbind(&quot;click&quot;);</span><br></pre></td></tr></table></figure>
-</li>
+<ol start="2">
+<li>setTimeout的运行机制</li>
 </ol>
-<p>三、使用实例<br><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>btn1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"removeFun"</span>&gt;</span>btn2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"testDiv"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">$(function()&#123;</span><br><span class="line">var num=1;</span><br><span class="line">//点击btn1,testDiv中添加p元素</span><br><span class="line">   $(&quot;#btn&quot;).bind(&quot;click&quot;,function()&#123;</span><br><span class="line">       $(&quot;#testDiv&quot;).append(&quot;&lt;p&gt;&quot;+(num++)+&quot;&lt;/p&gt;&quot;)</span><br><span class="line">   &#125;);</span><br><span class="line">   //点击btn2，解除给btn1绑定的事件</span><br><span class="line">   $(&quot;#removeFun&quot;).bind(&quot;click&quot;,function()&#123;</span><br><span class="line">       $(&quot;#btn&quot;).unbind(&quot;click&quot;);</span><br><span class="line">   &#125;);</span><br><span class="line">   //给动态添加的p元素绑定点击事件</span><br><span class="line">   $(&quot;#testDiv&quot;).on(&quot;click&quot;,&quot;p&quot;,&#123;data:&quot;段落&quot;&#125;,function(event)&#123;</span><br><span class="line">       alert(event.data.data+$(this).text());</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>js单线程<br>   JavaScript是一种基于事件驱动的单线程语言，一次只能执行一个任务。浏览器内核允许多个线程异步执行，当有各种回调函数需要处理，这些待处理回调函数被添加到任务处理队列中，由于js单线程的原因，只能排队依次执行。第一种情况由于先执行的for循环，当i已经加到5后才执行setTimeout，所以会输出一样的5。</li>
+<li>闭包<br>   闭包指的是有权访问另一个函数作用域中的函数，在函数内部定义的局部变量不能被其他函数访问，需要访问局部变量时就可以创建闭包。闭包只能取得包含函数中变量的最后一个值，它保存的是整个变量对象。在第三种情况中，利用自执行匿名函数强制传入了变量i，函数参数是按值传递的，打印在控制台的i就会持续变化。</li>
+</ul>
+
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2018/07/15/setTimeout/" data-toggle="tooltip" data-placement="top"
-                           title="">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2018/07/01/input-image/" data-toggle="tooltip" data-placement="top"
-                           title="在input框前添加图片">Next Post &rarr;</a>
+                        <a href="/2018/07/05/on-bind/" data-toggle="tooltip" data-placement="top"
+                           title="jquery on、bind用法比较">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -234,7 +210,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title：for循环中setTimeout如何按预想运行"><span class="toc-text">title：for循环中setTimeout如何按预想运行</span></a></li></ol>
                 </div>
             </div>
         </div>
