@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        个人博客
+        for循环中setTimeout如何运行｜个人博客
         
     </title>
 
-    <link rel="canonical" href="http://luodan106.github.io/archives/">
+    <link rel="canonical" href="http://luodan106.github.io/2018/07/15/on-bind - 副本/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -115,103 +115,134 @@
 </script>
 
 <!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/image/star.jpeg">
+
+
 <style>
-    .intro-header .site-heading {
-        margin: 50px;
-    }
     
     header.intro-header {
         background-image: url('/image/star.jpeg')
     }
+
     
 </style>
 
-<!-- Page Header -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading text-center">
-                    <h1>archives</h1>
-                    <span class="subheading">可以根据归档日期检索所有文件</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>for循环中setTimeout如何运行</h1>
+                    
+                    <span class="meta">
+                         作者 洛洛木
+                        <span>
+                          日期 2018-07-15
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="post-title-haojen">
+        <span>
+            for循环中setTimeout如何运行
+        </span>
+    </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- archive list -->
-            
-				
-				
-				
-					
-					
-					<div class="archive archive-year" data-date="2018">
-						<h2 class="archive-title">
-						<span class="fa fa-archive">
-							<a href="/archives/2018">2018</a>
-						</span>
-						</h2>
-				
-				
-					
-					
-					<div class="archive archive-month" data-date="201807">
-						<h3 class="archive-title">
-							<a href="/archives/2018/07">07</a>
-						</h3>
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/15/on-bind - 副本/">
-                        <h4 class="post-title">
-                            for循环中setTimeout如何运行
-                        </h4>
-                        
-                    </a>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <hr>
+<p>title：for循环中setTimeout如何按预想运行</p>
+<hr>
+<p>#for循环中setTimeout执行效果<br>for循环中setTimeout执行效果有如下几种<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(var i=0;i&lt;5;i++)&#123;</span><br><span class="line">setTimeout(function()&#123;</span><br><span class="line">    console.log(i)</span><br><span class="line">&#125;,1000)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结果是一下输出5个5<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(var i=0;i&lt;5;i++)&#123;</span><br><span class="line">(function(i)&#123;</span><br><span class="line">setTimeout(function()&#123;</span><br><span class="line">    console.log(i)</span><br><span class="line">&#125;,1000*i);</span><br><span class="line">&#125;)(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结果是隔一秒输出0，1，2，3，4<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for(var i=0;i&lt;5;i++)&#123;</span><br><span class="line">setTimeout(function()&#123;</span><br><span class="line">    console.log(i)</span><br><span class="line">&#125;(i),1000*i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>结果连续输出0，1，2，3，4</p>
+<p>#加入各种setTimeout执行顺序问题</p>
+<p>##先来了解一下setTimeout和setInterval的用法</p>
+<ol>
+<li>setTimeout使用方法：var id=setTimeout(fun,milliseconds)，指定的时间间隔后执行函数，返回的id值可以传递给 clearTimeout() 来取消执行</li>
+<li>setInterval使用方法：var id=setInterval(fun,milliseconds)，按照指定的周期（以毫秒计）来调用函数，返回的id值可以传递给 clearInterval()取消对函数的周期性执行</li>
+<li>setTimeout和for循环放在一起使用会产生上面这种效果主要原因在于以下，js的单线程机制和闭包。<br>##setTimeout的运行机制<br>###js单线程<br>  JavaScript是一种基于事件驱动的单线程语言，一次只能执行一个任务。浏览器内核允许多个线程异步执行，当有各种回调函数需要处理，这些待处理回调函数被添加到任务处理队列中，由于js单线程的原因，只能排队依次执行。第一种情况由于先执行的for循环，当i已经加到5后才执行setTimeout，所以会输出一样的5。<br>###闭包<br>  闭包指的是有权访问另一个函数作用域中的函数，在函数内部定义的局部变量不能被其他函数访问，需要访问局部变量时就可以创建闭包。闭包只能取得包含函数中变量的最后一个值，它保存的是整个变量对象。在第三种情况中，利用自执行匿名函数强制传入了变量i，函数参数是按值传递的，打印在控制台的i就会持续变化。</li>
+</ol>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/07/05/on-bind/" data-toggle="tooltip" data-placement="top"
+                           title="jquery on、bind用法比较">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    
                 </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/05/on-bind/">
-                        <h4 class="post-title">
-                            jquery on、bind用法比较
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/01/input-image/">
-                        <h4 class="post-title">
-                            在input框前添加图片
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
+            </div>
         </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
     </div>
+</article>
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->
