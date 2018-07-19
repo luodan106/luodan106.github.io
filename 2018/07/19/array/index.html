@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        个人博客
+        操作数组的各种方法｜个人博客
         
     </title>
 
-    <link rel="canonical" href="http://luodan106.github.io/archives/2018/07/">
+    <link rel="canonical" href="http://luodan106.github.io/2018/07/19/array/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -115,119 +115,122 @@
 </script>
 
 <!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/image/star.jpeg">
+
+
 <style>
-    .intro-header .site-heading {
-        margin: 50px;
-    }
     
     header.intro-header {
         background-image: url('/image/star.jpeg')
     }
+
     
 </style>
 
-<!-- Page Header -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading text-center">
-                    <h1>archives</h1>
-                    <span class="subheading">可以根据归档日期检索所有文件</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>操作数组的各种方法</h1>
+                    
+                    <span class="meta">
+                         作者 洛洛木
+                        <span>
+                          日期 2018-07-19
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="post-title-haojen">
+        <span>
+            操作数组的各种方法
+        </span>
+    </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- archive list -->
-            
-				
-				
-				
-					
-					
-					<div class="archive archive-year" data-date="2018">
-						<h2 class="archive-title">
-						<span class="fa fa-archive">
-							<a href="/archives/2018">2018</a>
-						</span>
-						</h2>
-				
-				
-					
-					
-					<div class="archive archive-month" data-date="201807">
-						<h3 class="archive-title">
-							<a href="/archives/2018/07">07</a>
-						</h3>
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/19/array/">
-                        <h4 class="post-title">
-                            操作数组的各种方法
-                        </h4>
-                        
-                    </a>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <hr>
+<h2 id="操作数组的各种方法"><a href="#操作数组的各种方法" class="headerlink" title="操作数组的各种方法"></a>操作数组的各种方法</h2><p>所有原数组为var a=[1,2,3,4,5,6]</p>
+<table><tr><td>方法</td><td>使用方法</td><td>原数组</td><td>返回值</td></tr><tr><td>join()</td><td>a.join(“,”)</td><td>[1,2,3,4,5,6]</td><td>“1,2,3,4,5,6”</td></tr><tr><td>pop()</td><td>a.pop()</td><td>[1,2,3,4,5]</td><td>6</td></tr><tr><td>push()</td><td>a.push(7)</td><td>[1,2,3,4,5,6,7]</td><td>7(新数组的长度)</td></tr><tr><td>shift()</td><td>a.shift()</td><td>[2,3,4,5,6]</td><td>1</td></tr><tr><td>unshift()</td><td>a.unshift(7)</td><td>[7,1,2,3,4,5,6]</td><td>7(新数组的长度)</td></tr><tr><td>concat()</td><td>a.concat([7])</td><td>[1,2,3,4,5,6]</td><td>[1,2,3,4,5,6,7]</td></tr><tr><td rowspan="3">splice()</td><td>a.splice(0,2)</td><td>[3,4,5,6]</td><td>[1,2]</td></tr><tr><td>a.splice(2,0,8,9)</td><td>[1,2,8,9,3,4,5,6]</td><td>[]</td></tr><tr><td>a.slice(2,1,9)</td><td>[1,2,9,4,5,6]</td><td>[3]</td></tr><tr><td rowspan="4">slice()</td><td>a.slice(1)</td><td>[1,2,3,4,5,6]</td><td>[2,3,4,5,6]</td></tr><tr><td>a.slice(1,4)</td><td>[1,2,3,4,5,6]</td><td>[2,3,4]</td></tr><tr><td>a.slice(-1,2)</td><td>[1,2,3,4,5,6]</td><td>[]</td></tr><tr><td>a.slice(-2,-1)</td><td>[1,2,3,4,5,6]</td><td>[5]</td></tr><br></table>
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/07/15/setTimeout/" data-toggle="tooltip" data-placement="top"
+                           title="for循环中setTimeout如何按预想运行">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#操作数组的各种方法"><span class="toc-text">操作数组的各种方法</span></a></li></ol>
                 </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/15/setTimeout/">
-                        <h4 class="post-title">
-                            for循环中setTimeout如何按预想运行
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/05/on-bind/">
-                        <h4 class="post-title">
-                            jquery on、bind用法比较
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/01/input-image/">
-                        <h4 class="post-title">
-                            在input框前添加图片
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
+            </div>
         </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
     </div>
+</article>
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->
