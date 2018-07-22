@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        个人博客
+        一个简单瀑布流如何实现｜个人博客
         
     </title>
 
-    <link rel="canonical" href="http://luodan106.github.io/archives/">
+    <link rel="canonical" href="http://luodan106.github.io/2018/07/22/waterfall/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -115,135 +115,130 @@
 </script>
 
 <!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/image/star.jpeg">
+
+
 <style>
-    .intro-header .site-heading {
-        margin: 50px;
-    }
     
     header.intro-header {
         background-image: url('/image/star.jpeg')
     }
+
     
 </style>
 
-<!-- Page Header -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading text-center">
-                    <h1>archives</h1>
-                    <span class="subheading">可以根据归档日期检索所有文件</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>一个简单瀑布流如何实现</h1>
+                    
+                    <span class="meta">
+                         作者 洛洛木
+                        <span>
+                          日期 2018-07-22
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="post-title-haojen">
+        <span>
+            一个简单瀑布流如何实现
+        </span>
+    </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- archive list -->
-            
-				
-				
-				
-					
-					
-					<div class="archive archive-year" data-date="2018">
-						<h2 class="archive-title">
-						<span class="fa fa-archive">
-							<a href="/archives/2018">2018</a>
-						</span>
-						</h2>
-				
-				
-					
-					
-					<div class="archive archive-month" data-date="201807">
-						<h3 class="archive-title">
-							<a href="/archives/2018/07">07</a>
-						</h3>
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/22/waterfall/">
-                        <h4 class="post-title">
-                            一个简单瀑布流如何实现
-                        </h4>
-                        
-                    </a>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <hr>
+<h2 id="一个简单瀑布流如何实现"><a href="#一个简单瀑布流如何实现" class="headerlink" title="一个简单瀑布流如何实现"></a>一个简单瀑布流如何实现</h2><p>本文实现的一个瀑布流基本做到以下几点：</p>
+<ul>
+<li>每行中确定放置的图片数一致，每张图片宽度相同，图片高度会不一致</li>
+<li>判断高度最小的一列先加入图片</li>
+<li>向下滚动时若图片未将空白填满，则继续加载新的图片</li>
+</ul>
+<p>1.设定一行显示5张图片，根据当前浏览器的宽度调整每张图片的宽度，判断图片的原始长宽，根据宽度设定同比例长度<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//获取当前文档元素宽度</span><br><span class="line">var wwidth=document.documentElement.clientWidth,</span><br><span class="line">    imagewidth=Math.floor(wwidth*3/20);           //3/4的宽度用来自适应显示5张图片</span><br><span class="line"> $(&quot;img&quot;).each(function(index,image)&#123;</span><br><span class="line">   var realwidth=this.width;                  //获取图片原本的宽度</span><br><span class="line">   var realheight=this.height;                //获取图片原本的高度</span><br><span class="line">   that.newwidth=imagewidth;                   //图片显示的宽度</span><br><span class="line">   var newheight=(that.newwidth/realwidth)*realheight;     //计算图片要展示的高度</span><br><span class="line">   $(this).height(newheight+&quot;px&quot;);                      //设定当前图片的高度为计算出的新的高度</span><br><span class="line">   $(this).width(that.newwidth+&quot;px&quot;);                     //设定当前图片的高度为计算出的新的宽度</span><br><span class="line">   //第一行按顺序放置5张图片</span><br><span class="line">   if(index&lt;5)&#123;</span><br><span class="line">      that.arr[index]=newheight;                //数组初始为第一行图片的高度</span><br><span class="line">      $(this.parentNode).width(that.newwidth+&quot;px&quot;).css(&#123;&quot;left&quot;:that.newwidth*index+&quot;px&quot;,top:0&#125;);</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">      var min=Math.min.apply(Math,that.arr);                //获取数组中的最小高度，将下一张图片展示在相应行</span><br><span class="line">      var n=that.arr.indexOf(min);</span><br><span class="line">      $(this.parentNode).width(that.newwidth+&quot;px&quot;).css(&#123;&quot;left&quot;:that.newwidth*n+&quot;px&quot;,top:that.arr[n]&#125;);</span><br><span class="line">      that.arr[n]+=newheight;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>2.添加滚动事件，首先判断是否已经滚动到底部，若最短列已滚动到最后，则加载新的图片进来<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//绑定滚动事件</span><br><span class="line">$(window).on(&apos;scroll&apos;,that,this._scrollEvent);</span><br><span class="line">//当页面滚动时触发，判断是否继续加载新的图片</span><br><span class="line">_scrollEvent:function(event)&#123;</span><br><span class="line">   var min=Math.min.apply(Math,event.data.arr);               //获取当前滚动到离顶部的距离</span><br><span class="line">   var top = $(this).scrollTop()+$(this).height();</span><br><span class="line">   if(top&gt;min)&#123;                               //若是到顶部距离大于最小的高度，则继续加载图片</span><br><span class="line">     $(&quot;&lt;img/&gt;&quot;).attr(&quot;src&quot;,&quot;./images/&quot;+imageNames[0]+&quot;.jpg&quot;).on(&quot;load&quot;,function()&#123;</span><br><span class="line">     var realwidth=this.width;                  //获取图片原本的宽度</span><br><span class="line">     var realheight=this.height;                //获取图片原本的高度</span><br><span class="line">     var newwidth=event.data.newwidth;                   //图片显示的宽度</span><br><span class="line">     var newheight=(newwidth/realwidth)*realheight;     //计算图片原本的高度</span><br><span class="line">     $(this).height(newheight+&quot;px&quot;);</span><br><span class="line">     $(this).width(newwidth+&quot;px&quot;);          </span><br><span class="line">     var n=event.data.arr.indexOf(min);</span><br><span class="line">     $(&quot;#main&quot;).append(&quot;&lt;div class=&apos;imagediv&apos; style=&apos;width:&quot;+event.data.newwidth+&quot;px;left:&quot;+(event.data.newwidth*n)+&quot;px;top:&quot;+min+&quot;px&apos;&gt;&lt;img src=&apos;./images/&quot;+imageNames[1]+&quot;.jpg&apos; style=&apos;width:&quot;+newwidth+&quot;px;height:&quot;+newheight+&quot;px&apos;/&gt;&lt;/div&gt;&quot;);</span><br><span class="line">     event.data.arr[n]+=newheight;</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>全部代码可见<a href="https://github.com/luodan106/plugins/tree/master/waterfall" target="_blank" rel="noopener">https://github.com/luodan106/plugins/tree/master/waterfall</a></p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/07/19/array/" data-toggle="tooltip" data-placement="top"
+                           title="操作数组的各种方法">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一个简单瀑布流如何实现"><span class="toc-text">一个简单瀑布流如何实现</span></a></li></ol>
                 </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/19/array/">
-                        <h4 class="post-title">
-                            操作数组的各种方法
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/15/setTimeout/">
-                        <h4 class="post-title">
-                            for循环中setTimeout如何按预想运行
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/05/on-bind/">
-                        <h4 class="post-title">
-                            jquery on、bind用法比较
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2018/07/01/input-image/">
-                        <h4 class="post-title">
-                            在input框前添加图片
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
+            </div>
         </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
     </div>
+</article>
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->
