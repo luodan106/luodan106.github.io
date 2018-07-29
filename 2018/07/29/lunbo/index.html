@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="个人博客">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="洛洛木" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        实现图片轮播｜个人博客
+        
+    </title>
+
+    <link rel="canonical" href="http://luodan106.github.io/2018/07/29/lunbo/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('/image/star.jpeg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    洛洛木
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/image/star.jpeg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('/image/star.jpeg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>实现图片轮播</h1>
+                    
+                    <span class="meta">
+                         作者 洛洛木
+                        <span>
+                          日期 2018-07-29
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            实现图片轮播
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <hr>
+<h2 id="轮播插件"><a href="#轮播插件" class="headerlink" title="轮播插件"></a>轮播插件</h2><p>写好的一个轮播插件，依赖jquery，github：<a href="https://github.com/luodan106/plugins/tree/master/lunbo，" target="_blank" rel="noopener">https://github.com/luodan106/plugins/tree/master/lunbo，</a><br>调用方法：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$(&quot;#id&quot;).lunbo(&#123;src:[]&#125;)    //要给定需要加载插件元素的确定width和height，及需要展示的图片</span><br></pre></td></tr></table></figure></p>
+<p>下面是实现一个轮播功能插件的具体步骤</p>
+<ol>
+<li><p>在调用插件区域添加两层div，外面imgWrapper层设置宽度等于调用元素宽度，overflow设置为hidden，里面imgContent插入图片，宽度设置为所有图片宽度和，这样就可以保证在imgContent元素左右移动，并只在imgWrapper区域内显示。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var that = this;</span><br><span class="line">//获取父节点的长宽，根据此来设置轮播图片的长宽</span><br><span class="line">var height = this.ele.height();</span><br><span class="line"> this.width = this.ele.width();</span><br><span class="line"> //获取有几张图片</span><br><span class="line"> this.num = this.srcs.length;</span><br><span class="line"> this.ele.append(&quot;&lt;div class=&apos;imgWrapper&apos; style=&apos;width:&quot; + this.width + &quot;px;height:&quot; + height + &quot;px&apos;&gt;&lt;div class=&apos;imgContent&apos; style=&apos;width:&quot; + (this.width * (this.num + 1)) + &quot;px;height:&quot; + </span><br><span class="line"> height + &quot;px&apos;&gt;&lt;/div&gt;&lt;/div&gt;&quot;)</span><br><span class="line"> $(&quot;.imgWrapper&quot;).append(&quot;&lt;div class=&apos;imgSmallWrapper&apos; style=&apos;width:&quot; + this.width + &quot;px;</span><br><span class="line"> height:&quot;+ height*0.1+ &quot;px;line-height:&quot; + height*0.1 + &quot;px&apos;&gt;&lt;/div&gt;&quot;)</span><br><span class="line"> //将所有传入的图片顺序插入待展示区域</span><br><span class="line"> this.srcs.map(function (src, index) &#123;</span><br><span class="line">      $(&quot;.imgContent&quot;).append(&quot;&lt;img class=&apos;imgCls&apos; style=&apos;width:&quot; + that.width + &quot;px;height:&quot; +</span><br><span class="line">      height+ &quot;px&apos; src=&quot; + src + &quot; /&gt;&quot;);</span><br><span class="line">      $(&quot;.imgSmallWrapper&quot;).append(&quot;&lt;div class=&apos;imgSmall&apos; style=&apos;height:&quot; + height*0.08+&quot;px&apos;</span><br><span class="line">      &gt;&lt;img class=&apos;imgCls&apos; style=&apos;width:&quot; + that.width*0.08 + &quot;px;height:&quot; + height*0.08+&quot;px;&apos;</span><br><span class="line">      src=&quot;+src + &quot; /&gt;&lt;/div&gt;&quot;);</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为实现无缝轮播，插入图片时需要在最后多加一张开始图片，在轮播到最后时将left设置为显示第一张图片的left值，由于图片相同，可在视觉上造成持续无缝向同一个方向滚动图片</p>
+</li>
+<li><p>添加循环轮播事件，注意当图片播放到最后一张时，立即将imgContent的left值设置为0</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//触发滚动图片事件</span><br><span class="line">this._srollOnTime();</span><br><span class="line">//设置固定时间循环展示</span><br><span class="line">_srollOnTime: function() &#123;</span><br><span class="line">     var that = this;</span><br><span class="line">     this.timer=setInterval(this._setCircle(that), 2000);</span><br><span class="line">     &#125;</span><br><span class="line">//循环调用_changeImg设置图片的left值</span><br><span class="line">_setCircle:function(that)&#123;</span><br><span class="line">     return function()&#123;</span><br><span class="line">         that._changeImg(&quot;normal&quot;,that);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">//变化left值，呈现图片持续向左移动效果</span><br><span class="line">_changeImg: function (type, that) &#123;</span><br><span class="line">    var margin = $(&quot;.imgContent&quot;).css(&quot;left&quot;),</span><br><span class="line">        newIndex = 0;</span><br><span class="line">    //若是正常循环或者前一张则执行下列代码</span><br><span class="line">    if (type === &quot;normal&quot; || type === &quot;right&quot;) &#123;</span><br><span class="line">        //判断是否是最后一张，如果是则将left设置为初始值</span><br><span class="line">        if (Math.abs(parseFloat(margin)) &gt; that.width * (that.num - 1)) &#123;</span><br><span class="line">            margin = &quot;0px&quot;;</span><br><span class="line">            $(&quot;.imgContent&quot;).css(&quot;left&quot;, margin);</span><br><span class="line">        &#125;</span><br><span class="line">        //当前展示图片次序的相反数</span><br><span class="line">        newIndex = Math.floor((parseFloat(margin)) / that.width) - 1;</span><br><span class="line">        $(&quot;.imgContent&quot;).animate(&#123; left: (newIndex * that.width) + &quot;px&quot; &#125;);</span><br><span class="line">        newIndex = Math.abs(newIndex);</span><br><span class="line">        //当轮播到最后一张，重新从第一张开始</span><br><span class="line">        if (newIndex === that.num) &#123;</span><br><span class="line">            newIndex = 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        //判断是否是第一张，如果是则将left设置为最后一张的left值</span><br><span class="line">        if (Math.abs(parseFloat(margin)) &lt; that.width) &#123;</span><br><span class="line">            margin = -that.width * that.num + &quot;px&quot;;</span><br><span class="line">            $(&quot;.imgContent&quot;).css(&quot;left&quot;, margin);</span><br><span class="line">        &#125;</span><br><span class="line">        //在图片移动位置之前先将left的值调整至图片宽度的整数倍，防止移动后图片错位</span><br><span class="line">        newIndex = Math.floor((parseFloat(margin)) / that.width) + 1;</span><br><span class="line">        $(&quot;.imgContent&quot;).animate(&#123; left: (newIndex * that.width) + &quot;px&quot; &#125;);</span><br><span class="line">        newIndex = Math.abs(newIndex);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加向左向右按键，并绑定点击切换图片事件。在左右按键点击时可设置暂停循环，不然可能在点击下一张图片时恰好达到设置的图片自动切换的时间，一下就会移动两张图片，视觉效果受影响。在本篇中，我是将暂停循环设置在了鼠标移到向左向右按键上，在鼠标移出两张图片时，继续循环</p>
+</li>
+</ol>
+<ul>
+<li>首先在左右按键上绑定鼠标移入移出、点击事件</li>
+<li>定义鼠标移入移出及点击事件，在本篇中将左右滚动事件和循环切换图片绑定到同一个切换事件_changeImg上，由于点击切换图片的时刻left值不是图片宽度的整数倍，所以在变化left值之前先将left值处理为图片的整数倍<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//为左箭头图片添加鼠标移进移出、点击事件</span><br><span class="line">this.ele.on(&quot;click mouseover mouseout&quot;,&quot;.leftLink&quot;,this,function(e)&#123;</span><br><span class="line">    var that=e.data;</span><br><span class="line">    switch(e.type)&#123;</span><br><span class="line">           case &quot;click&quot;:</span><br><span class="line">               that._prevImg(e);</span><br><span class="line">               break;</span><br><span class="line">           case &quot;mouseout&quot;:</span><br><span class="line">               that._hideNav(e);</span><br><span class="line">               break;</span><br><span class="line">           case &quot;mouseover&quot;:</span><br><span class="line">               that._showNav(e);</span><br><span class="line">               break;</span><br><span class="line">           default:</span><br><span class="line">               break;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;);</span><br><span class="line">//为右箭头图片添加鼠标移进移出、点击事件</span><br><span class="line">this.ele.on(&quot;click mouseover mouseout&quot;,&quot;.rightLink&quot;,this,function(e)&#123;</span><br><span class="line">    var that=e.data;</span><br><span class="line">    switch(e.type)&#123;</span><br><span class="line">       case &quot;click&quot;:   </span><br><span class="line">            that._nextImg(e);</span><br><span class="line">            break;</span><br><span class="line">       case &quot;mouseout&quot;:</span><br><span class="line">            that._hideNav(e);</span><br><span class="line">            break;</span><br><span class="line">       case &quot;mouseover&quot;:</span><br><span class="line">            that._showNav(e);</span><br><span class="line">            break;</span><br><span class="line">       default:</span><br><span class="line">            break;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="5">
+<li>在图片下方设置轮播图片的缩小图，滚动到哪张小缩略图也相应设置focus，同时点击某张小图，大图也会相应切换<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//点击小缩略图时触发事件</span><br><span class="line">_chooseImg: function(e) &#123;</span><br><span class="line">    clearInterval(e.data.timer);</span><br><span class="line">    var that = e.data;</span><br><span class="line">    //获取点击的是第几张图片</span><br><span class="line">    var index = $(this).index();</span><br><span class="line">    $(&quot;.imgContent&quot;).animate(&#123; left: -(that.width) * index + &quot;px&quot; &#125;);</span><br><span class="line">    //当前展示的图片下面缩略图边框变色，其他缩略图去除变色边框</span><br><span class="line">    $(&quot;.focusImg&quot;).removeClass(&quot;focusImg&quot;);</span><br><span class="line">    $(&quot;.imgSmall&quot;).eq(index).addClass(&quot;focusImg&quot;);</span><br><span class="line">    that.timer = setInterval(that._setCircle(that), 2000);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/07/22/waterfall/" data-toggle="tooltip" data-placement="top"
+                           title="一个简单瀑布流如何实现">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#轮播插件"><span class="toc-text">轮播插件</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/ehazon">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/megahertz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/haojen">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 洛洛木 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://luodan106.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="/image/personimage.jpg">
+</body>
+
+</html>
