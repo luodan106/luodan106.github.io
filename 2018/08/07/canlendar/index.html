@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="个人博客">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="洛洛木" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        简易的日历插件（依赖于jquery）｜个人博客
+        
+    </title>
+
+    <link rel="canonical" href="http://luodan106.github.io/2018/08/07/canlendar/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('/image/star.jpeg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    洛洛木
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/image/star.jpeg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('/image/star.jpeg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>简易的日历插件（依赖于jquery）</h1>
+                    
+                    <span class="meta">
+                         作者 洛洛木
+                        <span>
+                          日期 2018-08-07
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            简易的日历插件（依赖于jquery）
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <hr>
+<h2 id="简易的日历插件（依赖于jquery）"><a href="#简易的日历插件（依赖于jquery）" class="headerlink" title="简易的日历插件（依赖于jquery）"></a>简易的日历插件（依赖于jquery）</h2><p>github地址：<a href="https://github.com/luodan106/plugins/tree/master/time" target="_blank" rel="noopener">https://github.com/luodan106/plugins/tree/master/time</a><br>调用方法：$(“#id”).myCanlendar()</p>
+<ol>
+<li><p>元素调用插件，首先得获取该元素的位置，根据元素的偏移位置设置日历的left和top值。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//获取绑定元素的偏移位置</span><br><span class="line">   var Y = $(ele).offset().top +$(ele).outerHeight();</span><br><span class="line">   var X = $(ele).offset().left;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化日历，显示当月的日期。首先判断当月的第一天是周几，其次需要提供判断是否为闰二月的方法，在日历第一行添加当月的前几天，若未填满第一行，则补充上个月的最后几天（不要添加点击事件）。最后一行若当月日期未填满，需要添加下个月前几天日期。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//计算当前月份1号对应周几</span><br><span class="line">var startPosition = date &lt;= day || date == day + 1 ? day - date + 1 : 7 - ((date - day - 1) % 7);</span><br><span class="line">var daynum = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];</span><br><span class="line">daynum[1] = this._isLeapYear(year) ? 29 : 28;     //判断是否是闰年的二月</span><br><span class="line">var currentmonth = this.month;</span><br><span class="line"></span><br><span class="line">var prevmonth = currentmonth == 0 ? 12 : (currentmonth - 1);</span><br><span class="line">var startdate = daynum[prevmonth] - startPosition + 1;</span><br><span class="line">//计算当前月份天数对应日历中几行</span><br><span class="line">var row = Math.ceil((daynum[currentmonth] - 7 + startPosition) / 7) + 1;</span><br><span class="line">var dateDisplay = &quot;&lt;ul class=&apos;weektitle&apos;&gt;&quot;;</span><br><span class="line">this.dayArr.map(function (day, index) &#123;</span><br><span class="line">    dateDisplay += &quot;&lt;li&gt;&quot; + day + &quot;&lt;/li&gt;&quot;;</span><br><span class="line">&#125;)</span><br><span class="line">dateDisplay += &quot;&lt;/ul&gt;&quot;;</span><br><span class="line">//添加上月最后几天日期</span><br><span class="line">var sD = startdate;</span><br><span class="line">dateDisplay += &quot;&lt;ul class=&apos;weekday&apos;&gt;&quot;;</span><br><span class="line">while (sD &lt;= daynum[prevmonth] &amp;&amp; (daynum[prevmonth] - sD !== 6)) &#123;</span><br><span class="line">    dateDisplay += &quot;&lt;li style=&apos;color:#b1b1bd&apos;&gt;&quot; + sD + &quot;&lt;/li&gt;&quot;;</span><br><span class="line">    sD++;</span><br><span class="line">&#125;</span><br><span class="line">var datenum = 1;</span><br><span class="line">//添加第一行的日期</span><br><span class="line">var sP = startPosition;</span><br><span class="line">while (sP &lt; 7) &#123;</span><br><span class="line">    dateDisplay += &quot;&lt;li class=&apos;datevalid&apos;&gt;&quot; + datenum + &quot;&lt;/li&gt;&quot;;</span><br><span class="line">    datenum++;</span><br><span class="line">    sP++;</span><br><span class="line">&#125;</span><br><span class="line">dateDisplay += &quot;&lt;/ul&gt;&quot;</span><br><span class="line">//中间几行的日期</span><br><span class="line">for (var i = 1; i &lt; row - 1; i++) &#123;</span><br><span class="line">    dateDisplay += &quot;&lt;ul class=&apos;weekday&apos;&gt;&quot;;</span><br><span class="line">    for (var j = 0; j &lt; 7; j++) &#123;</span><br><span class="line">        dateDisplay += &quot;&lt;li class=&apos;datevalid&apos;&gt;&quot; + datenum + &quot;&lt;/li&gt;&quot;;</span><br><span class="line">        datenum++;</span><br><span class="line">    &#125;</span><br><span class="line">    dateDisplay += &quot;&lt;/ul&gt;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">//最后一行</span><br><span class="line">dateDisplay += &quot;&lt;ul class=&apos;weekday&apos;&gt;&quot;;</span><br><span class="line">//保存最后一行当前月份截止日期到哪天</span><br><span class="line">var n = 0;</span><br><span class="line">while (datenum &lt;= daynum[currentmonth]) &#123;</span><br><span class="line">    dateDisplay += &quot;&lt;li class=&apos;datevalid&apos;&gt;&quot; + datenum + &quot;&lt;/li&gt;&quot;;</span><br><span class="line">    datenum++;</span><br><span class="line">    n++;</span><br><span class="line">&#125;</span><br><span class="line">//开始保存下个月的前几天</span><br><span class="line">var num = 0;</span><br><span class="line">while (n &lt; 7) &#123;</span><br><span class="line">    num++;</span><br><span class="line">    dateDisplay += &quot;&lt;li style=&apos;color:#b1b1bd&apos;&gt;&quot; + num + &quot;&lt;/li&gt;&quot;;</span><br><span class="line">    n++;</span><br><span class="line">&#125;</span><br><span class="line">dateDisplay += &quot;&lt;/ul&gt;&quot;;</span><br><span class="line">this.initEle = dateDisplay;</span><br><span class="line">return dateDisplay;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>初始化后的日历如下所示<br><img src="/../image/date.png" alt="Alt text"></p>
+<ol start="3">
+<li>添加切换年月功能，点击左右按键中间年月显示部分则切换界面至年份选择界面或日期选择界面。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//点击切换更换年份选择</span><br><span class="line">_changeSelectClick: function (event) &#123;</span><br><span class="line">    var that = event.data.that;</span><br><span class="line">    that.tag = that.tag == &quot;date&quot; ? &quot;year&quot; : &quot;date&quot;;</span><br><span class="line">    if (that.tag === &quot;year&quot;) &#123;</span><br><span class="line">        that._returnTenYears(&quot;2010-2019&quot;);</span><br><span class="line">        $(&quot;.c_year&quot;).text(&quot;2010-2019&quot;);</span><br><span class="line">        $(&quot;.c_bottom&quot;).empty();</span><br><span class="line">        var bottomyear = that._returnTenYears(&quot;2010-2019&quot;);</span><br><span class="line">        $(&quot;.c_bottom&quot;).html(bottomyear);</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        $(&quot;.c_year&quot;).text(that.year + &quot;年&quot; + (that.month + 1) + &quot;月&quot;);</span><br><span class="line">        $(&quot;.c_bottom&quot;).empty();</span><br><span class="line">        $(&quot;.c_bottom&quot;).append(event.data.eledate);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line">//返回十年的年份选择</span><br><span class="line">_returnTenYears(range)&#123;</span><br><span class="line">    range = range.split(&quot;-&quot;);</span><br><span class="line">    range[0] = Number(range[0]);</span><br><span class="line">    var rangeArr = [--range[0], ++range[0], ++range[0], ++range[0], ++range[0], ++range[0], ++range[0]</span><br><span class="line">        , ++range[0], ++range[0], ++range[0], ++range[0], ++range[0]];</span><br><span class="line">    var bottomyear = &quot;&lt;ul class=&apos;dateboxul&apos;&gt;&lt;li class=&apos;dateli&apos;&gt;&quot; + rangeArr[0] + &quot;&lt;/li&gt;&quot; +</span><br><span class="line">        &quot;&lt;li class=&apos;dateboxli&apos;&gt;&quot; + rangeArr[1] + &quot;&lt;/li&gt;&lt;li class=&apos;dateboxli&apos;&gt;&quot; + rangeArr[2] + &quot;&lt;/li&gt;&lt;li class=&apos;dateboxli&apos;&gt;&quot; + rangeArr[3] + &quot;&lt;/li&gt;&lt;/ul&gt;&lt;ul class=&apos;dateboxul&apos;&gt;&quot;;</span><br><span class="line">    for (var j = 0; j &lt; 4; j++) &#123;</span><br><span class="line">        bottomyear += &quot;&lt;li class=&apos;dateboxli&apos;&gt;&quot; + rangeArr[j + 4] + &quot;&lt;/li&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    bottomyear += &quot;&lt;/ul&gt;&lt;ul class=&apos;dateboxul&apos;&gt;&lt;li class=&apos;dateboxli&apos;&gt;&quot; + rangeArr[8] + &quot;&lt;/li&gt;&quot; +</span><br><span class="line">        &quot;&lt;li class=&apos;dateboxli&apos;&gt;&quot; + rangeArr[9] + &quot;&lt;/li&gt;&lt;li class=&apos;dateboxli&apos;&gt;&quot; + rangeArr[10] + &quot;&lt;/li&gt;&lt;li class=&apos;dateli&apos;&gt;&quot; + rangeArr[11] + &quot;&lt;/li&gt;&lt;/ul&gt;&quot;;</span><br><span class="line">    return bottomyear;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="/../image/year.png" alt="Alt text"></p>
+<ol start="4">
+<li>点击年份后则显示月份的选择界面<br><img src="/../image/month.png" alt="Alt text"></li>
+<li><p>点击具体的日期后，remove整个日历元素，并将选择的日期显示在调用日历的元素中。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var selday = $(this).text();</span><br><span class="line">var that = event.data.that;</span><br><span class="line">var seldate = that.year + &quot;-&quot; + (that.month + 1) + &quot;-&quot; + selday;</span><br><span class="line">$(event.data.ele).val(seldate);</span><br><span class="line">$(&quot;.canlendar&quot;).remove();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加左右点击事件，切换至前十年、前一年、前一个月或后十年、后一年、后一个月选择界面</p>
+</li>
+</ol>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/07/29/lunbo/" data-toggle="tooltip" data-placement="top"
+                           title="实现图片轮播">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简易的日历插件（依赖于jquery）"><span class="toc-text">简易的日历插件（依赖于jquery）</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/luodan106">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 洛洛木 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://luodan106.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="/image/personimage.jpg">
+</body>
+
+</html>
