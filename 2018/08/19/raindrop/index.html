@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        canvas设置宽高问题｜个人博客
+        canvas绘制下雨动画｜个人博客
         
     </title>
 
-    <link rel="canonical" href="http://luodan106.github.io/2018/08/17/canvas-width/">
+    <link rel="canonical" href="http://luodan106.github.io/2018/08/19/raindrop/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -137,12 +137,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>canvas设置宽高问题</h1>
+                    <h1>canvas绘制下雨动画</h1>
                     
                     <span class="meta">
                          作者 洛洛木
                         <span>
-                          日期 2018-08-17
+                          日期 2018-08-19
                          </span>
                     </span>
                     <div class="tags text-center">
@@ -154,7 +154,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            canvas设置宽高问题
+            canvas绘制下雨动画
         </span>
     </div>
 </header>
@@ -166,32 +166,31 @@
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
                 <hr>
-<h2 id="canvas设置宽高问题"><a href="#canvas设置宽高问题" class="headerlink" title="canvas设置宽高问题"></a>canvas设置宽高问题</h2><p>对一个canvas元素设置宽高有三种方式<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;canvas id=&quot;can&quot;&gt;&lt;/canvas&gt;</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;canvas id=&quot;can&quot; width=&quot;1120&quot; height=&quot;850&quot;&gt;&lt;/canvas&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;canvas id=&quot;can&quot; style=&quot;width:1120px;height:850px&quot;&gt;&lt;/canvas&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#can&#123;width:1120px;height:850px&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="canvas绘制下雨动画"><a href="#canvas绘制下雨动画" class="headerlink" title="canvas绘制下雨动画"></a>canvas绘制下雨动画</h2><ol>
+<li>创建雨点对象<br>在canvas元素中绘制下雨动画，首先需要定义多个雨点对象，每个对象包括雨点的x，y坐标和x，y的变化速度以及雨点落地后产生圆的半径大小和扩张速度，并保存在一个数组中<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for (var i = 0; i &lt; 300; i++) &#123;</span><br><span class="line">    const that = this;</span><br><span class="line">    setTimeout(function () &#123;</span><br><span class="line">        const rainObj = that.createNewRain();</span><br><span class="line">        that.rainArr.push(rainObj);</span><br><span class="line">    &#125;, i * 200);</span><br><span class="line">&#125;</span><br><span class="line">//创建新雨滴，设置初始属性</span><br><span class="line">createNewRain = () =&gt; &#123;</span><br><span class="line">    const singleRain = &#123;&#125;;</span><br><span class="line">    //设置雨滴初始位置</span><br><span class="line">    singleRain.x = Math.random() * this.state.windowX;</span><br><span class="line">    singleRain.y = 0;</span><br><span class="line">    singleRain.ySpeed = Math.random() + 4;</span><br><span class="line">    singleRain.mHeight = Math.random() * this.state.windowY * 0.1 + this.state.windowY * 0.8;</span><br><span class="line">    singleRain.rlen = Math.random() * 8 + 2;</span><br><span class="line">    //波纹的半径</span><br><span class="line">    singleRain.r = 1;</span><br><span class="line">    singleRain.rSpeed = 1;</span><br><span class="line">    singleRain.rMax = singleRain.rlen * 2;</span><br><span class="line"></span><br><span class="line">    //设置最后的透明度</span><br><span class="line">    singleRain.o = 1;</span><br><span class="line">    singleRain.oSpeed = 0.96;</span><br><span class="line">    return singleRain;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>第一种方法会将canvas画布设置成我们需要的大小<br><img src="/../image/1534465922459.png" alt="Alt text"></p>
-<p>而后面的两种方法会将canvas元素从原本的大小拉伸至所设置的宽度，造成图像的变形<br><img src="/../image/1534465683964.png" alt="Alt text"></p>
+<p>设置定时器拉开雨点的产生时间，增强雨点降落的随机性</p>
+<ol start="2">
+<li>所有雨点构建完成后，循环更新绘制动画</li>
+</ol>
+<ul>
+<li>循环所有雨点对象，雨点对象的新坐标根据上一时刻的y值和运动速度ySpeed决定</li>
+<li>确定新坐标后，判断是否已经到达规定的雨点降落界限，如果到达，则开始绘制涟漪动画，重复绘制半径扩大的圆，圆半径也需要给定一个最大半径，到达规定值，慢慢增大圆的透明度，直到小于一定值，不再绘制圆，将这个雨点对象重新初始化，从顶部开始重新降落</li>
+<li>将更新后的雨点或圆重新绘制<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rainDrop = () =&gt; &#123;</span><br><span class="line">    this.ctx.fillStyle = &quot;white&quot;;</span><br><span class="line">    this.ctx.clearRect(0, 0, this.state.windowX, this.state.windowY);</span><br><span class="line">    for (let i = 0; i &lt; this.rainArr.length; i++) &#123;</span><br><span class="line">        this.drawRainRoad(this.rainArr[i], i);</span><br><span class="line">    &#125;</span><br><span class="line">    requestAnimationFrame(this.rainDrop);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//绘制雨滴路径</span><br><span class="line">drawRainRoad = (rainObj, i) =&gt; &#123;</span><br><span class="line">    if (rainObj.y &lt; rainObj.mHeight) &#123;</span><br><span class="line">        this.ctx.fillRect(rainObj.x, rainObj.y, 2, rainObj.rlen);</span><br><span class="line">    &#125;</span><br><span class="line">    //如果雨滴下落到最下面，则绘制圆形涟漪</span><br><span class="line">    else &#123;</span><br><span class="line">        this.ctx.beginPath();</span><br><span class="line">        this.ctx.arc(rainObj.x, rainObj.y, rainObj.r, 0, Math.PI * 2, false);</span><br><span class="line">        this.ctx.strokeStyle = `rgba(255,255,255,$&#123;rainObj.o&#125;)`;</span><br><span class="line">        this.ctx.stroke();</span><br><span class="line">    &#125;</span><br><span class="line">    this.updateRain(rainObj, i);</span><br><span class="line">&#125;</span><br><span class="line">//动态更新雨点位置</span><br><span class="line">updateRain = (rainObj, i) =&gt; &#123;</span><br><span class="line">    if (rainObj.y &lt; rainObj.mHeight) &#123;</span><br><span class="line">        rainObj.y += rainObj.ySpeed;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        if (rainObj.o &gt; 0.03) &#123;</span><br><span class="line">            rainObj.r += rainObj.rSpeed;</span><br><span class="line">            if (rainObj.r &gt; rainObj.rMax) &#123;</span><br><span class="line">                rainObj.o *= rainObj.oSpeed;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            //初始化雨滴</span><br><span class="line">            this.rainArr[i] = this.createNewRain();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>效果图<br><img src="/../image/rain.gif" alt="Alt text"></p>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2018/08/19/raindrop/" data-toggle="tooltip" data-placement="top"
-                           title="canvas绘制下雨动画">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2018/08/07/canlendar/" data-toggle="tooltip" data-placement="top"
-                           title="简易的日历插件（依赖于jquery）">Next Post &rarr;</a>
+                        <a href="/2018/08/17/canvas-width/" data-toggle="tooltip" data-placement="top"
+                           title="canvas设置宽高问题">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -207,7 +206,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#canvas设置宽高问题"><span class="toc-text">canvas设置宽高问题</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#canvas绘制下雨动画"><span class="toc-text">canvas绘制下雨动画</span></a></li></ol>
                 </div>
             </div>
         </div>
