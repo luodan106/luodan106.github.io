@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="个人博客">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="洛洛木" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        火柴人躲避球｜个人博客
+        
+    </title>
+
+    <link rel="canonical" href="http://luodan106.github.io/2018/08/19/match-sticker/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('/image/star.jpeg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    洛洛木
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="/image/star.jpeg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('/image/star.jpeg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>火柴人躲避球</h1>
+                    
+                    <span class="meta">
+                         作者 洛洛木
+                        <span>
+                          日期 2018-08-19
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            火柴人躲避球
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <hr>
+<h2 id="火柴人躲避球"><a href="#火柴人躲避球" class="headerlink" title="火柴人躲避球"></a>火柴人躲避球</h2><p><img src="/../image/ms.gif" alt="Alt text"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//点击开始绘制火柴人和小球</span><br><span class="line">startAgain=()=&gt;&#123;</span><br><span class="line">    this.collision=false;</span><br><span class="line">    this.frags = [];</span><br><span class="line">    const frontCanvas = document.getElementById(&quot;frontCanvas&quot;);</span><br><span class="line">    frontCanvas.addEventListener(&quot;mousemove&quot;, this.getPosition);</span><br><span class="line">    if(this.destoryId)&#123;</span><br><span class="line">        cancelAnimationFrame(this.destoryId);</span><br><span class="line">    &#125;</span><br><span class="line">    this.setState(&#123;</span><br><span class="line">        startBtn:&apos;none&apos;</span><br><span class="line">    &#125;,()=&gt;&#123;</span><br><span class="line">        this.ctx.clearRect(0, 0, this.props.windowX * 0.5, this.props.windowY * 0.5);</span><br><span class="line">    </span><br><span class="line">        //绘制火柴人</span><br><span class="line">        this.drawMatchstick();</span><br><span class="line">        this.ball = [];</span><br><span class="line">        //绘制球</span><br><span class="line">        for (let i = 0; i &lt; 6; i++) &#123;</span><br><span class="line">            this.ball.push(this.createBall());</span><br><span class="line">        &#125;;</span><br><span class="line">        this.createBalls();</span><br><span class="line">    &#125;);</span><br><span class="line">   </span><br><span class="line">&#125;</span><br><span class="line">//小人碰撞到球后产生的碎点</span><br><span class="line">createStickFrag = () =&gt; &#123;</span><br><span class="line">    //火柴碎片</span><br><span class="line">    for (let i = 0; i &lt; 30; i++) &#123;</span><br><span class="line">        const frag = &#123;</span><br><span class="line">            x: this.newP,</span><br><span class="line">            y: this.props.windowY*0.5-60,</span><br><span class="line">            xSpeed: Math.random() * 0.2 - 0.1,</span><br><span class="line">            ySpeed: Math.random() * 0.4 + 0.2</span><br><span class="line">        &#125;</span><br><span class="line">        this.frags.push(frag);</span><br><span class="line">    &#125;</span><br><span class="line">    this.destoryId=requestAnimationFrame(this.detoryMatchStick);</span><br><span class="line">&#125;</span><br><span class="line">//碰撞后的碎点绘制</span><br><span class="line">detoryMatchStick = () =&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    this.ctx.clearRect(0, 0, this.props.windowX * 0.5, this.props.windowY * 0.5);</span><br><span class="line">    for (let i = 0; i &lt; this.frags.length; i++) &#123;</span><br><span class="line">        if (this.frags[i].y &lt; this.props.windowY * 0.5 - 5) &#123;</span><br><span class="line">            this.frags[i].x += this.frags[i].xSpeed;</span><br><span class="line">            this.frags[i].y += this.frags[i].ySpeed;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            this.setState(&#123;</span><br><span class="line">                startBtn:&apos;block&apos;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">        this.ctx.beginPath();</span><br><span class="line">        this.ctx.fillStyle = &quot;red&quot;;</span><br><span class="line">        this.ctx.fillRect(this.frags[i].x, this.frags[i].y, 2, 2);</span><br><span class="line">    &#125;</span><br><span class="line">    requestAnimationFrame(this.detoryMatchStick);</span><br><span class="line">&#125;</span><br><span class="line">//绘制不断变化位置的小球及人</span><br><span class="line">createBalls = () =&gt; &#123;</span><br><span class="line">    this.ctx.clearRect(0, 0, this.props.windowX * 0.5, this.props.windowY * 0.5);</span><br><span class="line">    for (let i = 0; i &lt; this.ball.length; i++) &#123;</span><br><span class="line">        if (this.collision) break;</span><br><span class="line">        this.updateBall(this.ball[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!this.collision) &#123;</span><br><span class="line">        this.ctx.beginPath();</span><br><span class="line">        this.ctx.arc(50, this.props.windowY * 0.5 - 50, 10, 0, 2 * Math.PI, true);</span><br><span class="line">        this.ctx.strokeStyle = &quot;black&quot;;</span><br><span class="line"></span><br><span class="line">        this.ctx.lineWidth = 1;</span><br><span class="line">        this.drawStatic(50);</span><br><span class="line">        this.ctx.stroke();</span><br><span class="line"></span><br><span class="line">        this.ballMoveId = requestAnimationFrame(this.createBalls);</span><br><span class="line">    &#125; else &#123; </span><br><span class="line">        const frontCanvas = document.getElementById(&quot;frontCanvas&quot;);</span><br><span class="line">        frontCanvas.removeEventListener(&quot;mousemove&quot;, this.getPosition);</span><br><span class="line">        cancelAnimationFrame(this.id);</span><br><span class="line">        cancelAnimationFrame(this.ballMoveId);</span><br><span class="line">        this.createStickFrag();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//更新球以及小人的坐标位置</span><br><span class="line">updateBall = (ballObj) =&gt; &#123;</span><br><span class="line">    //获取小人当前的位置</span><br><span class="line">    const stickX=this.initPosition?this.initPosition.x:50;</span><br><span class="line">    const windowX = this.props.windowX * 0.5;</span><br><span class="line">    const windowY = this.props.windowY * 0.5;</span><br><span class="line">    if (ballObj.ballXDirection) &#123;</span><br><span class="line">        ballObj.x += ballObj.xSpeed;</span><br><span class="line">        if (ballObj.x &gt;= windowX) &#123;</span><br><span class="line">            ballObj.ballXDirection = false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        ballObj.x -= ballObj.xSpeed;</span><br><span class="line">        if (ballObj.x &lt;= 0) &#123;</span><br><span class="line">            ballObj.ballXDirection = true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (ballObj.ballYDirection) &#123;</span><br><span class="line">        ballObj.y += ballObj.ySpeed;</span><br><span class="line">        if (ballObj.y &gt;= windowY) &#123;</span><br><span class="line">            ballObj.ballYDirection = false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        ballObj.y -= ballObj.ySpeed;</span><br><span class="line">        if (ballObj.y &lt;= 0) &#123;</span><br><span class="line">            ballObj.ballYDirection = true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (stickX &lt; ballObj.x + 10 &amp;&amp; stickX &gt; ballObj.x - 10 &amp;&amp; ballObj.y &gt; windowY - 60) &#123;</span><br><span class="line">        this.collision = true;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.ctx.beginPath();</span><br><span class="line">    this.ctx.arc(ballObj.x, ballObj.y, ballObj.r, 0, Math.PI * 2, false);</span><br><span class="line">    this.ctx.fillStyle=&quot;#aeaeb7&quot;;</span><br><span class="line">    this.ctx.fill();</span><br><span class="line">&#125;</span><br><span class="line">//火柴人的初始状态绘制</span><br><span class="line">drawMatchstick = () =&gt; &#123;</span><br><span class="line">    const windowX = this.props.windowX * 0.5;</span><br><span class="line">    const windowY = this.props.windowY * 0.5;</span><br><span class="line"></span><br><span class="line">    this.initPosition = &#123;</span><br><span class="line">        x: 50,</span><br><span class="line">        y: windowY - 50,</span><br><span class="line">        xSpeed: 2,</span><br><span class="line">        newP: 0</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.ctx.beginPath();</span><br><span class="line">    this.ctx.arc(50, windowY - 50, 10, 0, 2 * Math.PI, true);</span><br><span class="line">    this.ctx.strokeStyle = &quot;black&quot;;</span><br><span class="line"></span><br><span class="line">    this.ctx.lineWidth = 1;</span><br><span class="line">    this.drawStatic(50);</span><br><span class="line"></span><br><span class="line">    this.ctx.stroke();</span><br><span class="line">&#125;</span><br><span class="line">//获取鼠标位置，并让小人朝着鼠标点不断移动</span><br><span class="line">getPosition = (e) =&gt; &#123;</span><br><span class="line">    if (this.scheduledAnimationFrame) &#123; return; &#125;</span><br><span class="line">    //获取火柴人的新位置</span><br><span class="line">    let newPosition = e.clientX - this.canvasLeft;</span><br><span class="line">    this.newP = newPosition;</span><br><span class="line">    const windowX = this.props.windowX * 0.5;</span><br><span class="line">    const windowY = this.props.windowY * 0.5;</span><br><span class="line">    this.ctx.clearRect(0, 0, windowX, windowY);</span><br><span class="line"></span><br><span class="line">    if (newPosition &gt; this.initPosition.x) &#123;</span><br><span class="line">        this.moveDirection = &quot;right&quot;;</span><br><span class="line">        if (e.clientX &gt; frontCanvas.getBoundingClientRect().right - 25) &#123;</span><br><span class="line">            newPosition = frontCanvas.getBoundingClientRect().right - 25;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        if (e.clientX &lt; frontCanvas.getBoundingClientRect().left + 15) &#123;</span><br><span class="line">            newPosition = 15;</span><br><span class="line">        &#125;</span><br><span class="line">        this.moveDirection = &quot;left&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    this.initPosition.newP = newPosition;</span><br><span class="line">    this.scheduledAnimationFrame = true;</span><br><span class="line">    cancelAnimationFrame(this.id);</span><br><span class="line">    this.updatePosition();</span><br><span class="line"></span><br><span class="line">    this.ctx.beginPath();</span><br><span class="line">    this.ctx.arc(newPosition, windowY - 50, 10, 0, 2 * Math.PI, true);</span><br><span class="line">    this.ctx.strokeStyle = &quot;black&quot;;</span><br><span class="line"></span><br><span class="line">    this.ctx.lineWidth = 1;</span><br><span class="line">    this.ctx.stroke();</span><br><span class="line">&#125;</span><br><span class="line">//更新火柴人</span><br><span class="line">updatePosition = () =&gt; &#123;</span><br><span class="line">    this.scheduledAnimationFrame = false;</span><br><span class="line">    this.ctx.clearRect(0, 0, this.props.windowX * 0.5, this.props.windowY * 0.5);</span><br><span class="line">    for (let i = 0; i &lt; this.ball.length; i++) &#123;</span><br><span class="line">        this.updateBall(this.ball[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    this.ctx.beginPath();</span><br><span class="line">    if (this.moveDirection === &quot;right&quot;) &#123;</span><br><span class="line">        if (this.initPosition.x &lt; this.initPosition.newP) &#123;</span><br><span class="line">            this.initPosition.x += this.initPosition.xSpeed;</span><br><span class="line">            if (this.posture === &quot;static&quot;) &#123;</span><br><span class="line">                this.drawRight(this.initPosition.x);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                this.drawStatic(this.initPosition.x);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            this.drawStatic(this.initPosition.x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        if (this.initPosition.x &gt; this.initPosition.newP) &#123;</span><br><span class="line">            this.initPosition.x -= this.initPosition.xSpeed;</span><br><span class="line">            if (this.posture === &quot;static&quot;) &#123;</span><br><span class="line">                this.drawLeft(this.initPosition.x);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                this.drawStatic(this.initPosition.x);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            this.drawStatic(this.initPosition.x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    this.ctx.strokeStyle = &quot;black&quot;;</span><br><span class="line">    this.ctx.stroke();</span><br><span class="line">    this.id = requestAnimationFrame(this.updatePosition);</span><br><span class="line">&#125;</span><br><span class="line">//小人向左走的姿势</span><br><span class="line">drawLeft = (newX) =&gt; &#123;</span><br><span class="line">    const windowY = this.props.windowY * 0.5;</span><br><span class="line">    this.ctx.arc(newX, windowY - 50, 10, 0, 2 * Math.PI, true);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 40);</span><br><span class="line">    this.ctx.lineTo(newX, windowY - 20);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 40);</span><br><span class="line">    this.ctx.quadraticCurveTo(newX - 2, windowY - 30, newX - 10, windowY - 22);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 40);</span><br><span class="line">    this.ctx.quadraticCurveTo(newX + 12, windowY - 30, newX + 10, windowY - 22);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 20);</span><br><span class="line">    this.ctx.quadraticCurveTo(newX - 4, windowY - 18, newX - 10, windowY - 4);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 20);</span><br><span class="line">    this.ctx.quadraticCurveTo(newX - 2, windowY - 18, newX + 10, windowY - 4);</span><br><span class="line">    this.posture = &quot;left&quot;;</span><br><span class="line">&#125;</span><br><span class="line">//小人向右走的姿势</span><br><span class="line">drawRight = (newX) =&gt; &#123;</span><br><span class="line">    const windowY = this.props.windowY * 0.5;</span><br><span class="line">    //向右走</span><br><span class="line">    this.ctx.arc(newX, windowY - 50, 10, 0, 2 * Math.PI, true);</span><br><span class="line">    this.ctx.moveTo(newX, windowY - 40);</span><br><span class="line">    this.ctx.lineTo(newX, windowY - 20);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 40);</span><br><span class="line">    this.ctx.quadraticCurveTo(newX + 2, windowY - 30, newX + 10, windowY - 22);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 40);</span><br><span class="line">    this.ctx.quadraticCurveTo(newX - 12, windowY - 30, newX - 10, windowY - 22);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 20);</span><br><span class="line">    this.ctx.quadraticCurveTo(newX + 4, windowY - 18, newX + 10, windowY - 4);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 20);</span><br><span class="line">    this.ctx.quadraticCurveTo(newX + 2, windowY - 18, newX - 10, windowY - 4);</span><br><span class="line">    this.posture = &quot;right&quot;;</span><br><span class="line">&#125;</span><br><span class="line">//保持中间姿势</span><br><span class="line">drawStatic = (newX) =&gt; &#123;</span><br><span class="line">    const windowY = this.props.windowY * 0.5;</span><br><span class="line">    //绘制静止的小人</span><br><span class="line">    this.ctx.arc(newX, windowY - 50, 10, 0, 2 * Math.PI, true);</span><br><span class="line">    this.ctx.moveTo(newX, windowY - 40);</span><br><span class="line">    this.ctx.lineTo(newX, windowY - 20);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 40);</span><br><span class="line">    this.ctx.lineTo(newX - 10, windowY - 22);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 40);</span><br><span class="line">    this.ctx.lineTo(newX + 10, windowY - 22);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 20);</span><br><span class="line">    this.ctx.lineTo(newX - 10, windowY - 4);</span><br><span class="line"></span><br><span class="line">    this.ctx.moveTo(newX, windowY - 20);</span><br><span class="line">    this.ctx.lineTo(newX + 10, windowY - 4);</span><br><span class="line">    this.posture = &quot;static&quot;;</span><br><span class="line">&#125;</span><br><span class="line">//生成小球</span><br><span class="line">createBall = () =&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    const r = Math.random() * 10 + 10;</span><br><span class="line">    const x = Math.random() * (this.props.windowX * 0.5 - 2 * r) + r</span><br><span class="line">    const y = Math.random() * (this.props.windowY * 0.5 - 2 * r) + r;</span><br><span class="line">    const xSpeed = Math.random() + 2;</span><br><span class="line">    const ySpeed = Math.random() + 2;</span><br><span class="line">    const newBall = &#123;</span><br><span class="line">        x: x,</span><br><span class="line">        r: r,</span><br><span class="line">        y: y,</span><br><span class="line">        xSpeed: xSpeed,</span><br><span class="line">        ySpeed: ySpeed,</span><br><span class="line">        ballXDirection: true</span><br><span class="line">    &#125;</span><br><span class="line">    return newBall;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/08/19/raindrop/" data-toggle="tooltip" data-placement="top"
+                           title="canvas绘制下雨动画">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#火柴人躲避球"><span class="toc-text">火柴人躲避球</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/luodan106">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 洛洛木 2018
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://luodan106.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="/image/personimage.jpg">
+</body>
+
+</html>
